@@ -1,0 +1,20 @@
+{
+  "name": "personal-expense-tracker",
+  "version": "1.0.0",
+  "description": "A full stack personal expense tracker built with Node.js, Express and JWT authentication",
+  "main": "personal.js",
+  "scripts": {
+    "start": "node personal.js"
+  },
+  "keywords": [
+    "express",
+    "jwt",
+    "nodejs",
+    "fullstack"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3"
+  }
+}

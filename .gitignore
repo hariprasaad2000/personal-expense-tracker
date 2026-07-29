@@ -1,0 +1,12 @@
+# dependencies — anyone can rebuild these with "npm install"
+node_modules/
+
+# environment variables / secrets
+.env
+
+# macOS
+.DS_Store
+
+# logs
+*.log
+npm-debug.log*
