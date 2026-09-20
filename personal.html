@@ -1,3 +1,4 @@
+
 <html>
     <head>
         <script src = "https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -59,7 +60,7 @@
         </style>
     </head>
     <body>
-        <input style = "width:400px; padding:6px; margin:10px; border-radius: 6px; border: 1px solid #e5e5e5; " id ="first" type= "text" placeholder = "items">
+        <input style = "width:400px; padding:6px; margin:10px; border-radius: 6px; border: 1px solid #e5e5e5;" id ="first" type= "text" placeholder = "items">
         <input style = "width:400px; padding:6px; margin:10px; border-radius: 6px; border: 1px solid #e5e5e5;" id = "second" type= "text" placeholder = "amount">
 
         <div>
@@ -76,7 +77,7 @@
     const items = document.getElementById("first").value
     const amount = document.getElementById("second").value
 
-    const responses = await axios.post("/expense",
+    await axios.post("/expense",
         {
             items : items,
             amount : amount
@@ -95,9 +96,19 @@
         }
     });
 
-    document.getElementById("total").innerHTML = "Total:" + response.data.total;
+    const expenses = response.data.expenses
+    document.getElementById("response").innerHTML = ""
+
+    for (let i = 0; i < expenses.length; i++){
+        const div = document.createElement("div")
+        div.innerHTML = expenses[i].item + ": " + expenses[i].amount
+        document.getElementById("response").appendChild(div)
+    }
+
+    document.getElementById("total").innerHTML = "Total: " + response.data.total;
    }
 
    </script>
     </body>
 </html>
+EOF
