@@ -2,41 +2,30 @@
     <head>
         <script src = "https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <style>
-            /* ---- the whole page ---- */
             body {
                 background-color: #f4f1e6;
                 color: #223328;
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding-top: 50px;
-
-                /* flexbox: puts everything in one centered column */
                 display: flex;
                 flex-direction: column;
                 align-items: center;
             }
-
-            /* adds the page title using only CSS */
             body::before {
                 content: "Personal Expense Tracker";
                 font-size: 28px;
                 font-weight: bold;
                 margin-bottom: 20px;
             }
-
-            /* ---- the two text boxes ---- */
             input {
                 background-color: #ffffff;
                 color: #223328;
                 font-size: 15px;
             }
-
-            /* green ring when you click into a box */
             input:focus {
                 outline: 2px solid #2f6f5e;
             }
-
-            /* ---- the two buttons ---- */
             button {
                 background-color: #2f6f5e;
                 color: #ffffff;
@@ -47,18 +36,13 @@
                 cursor: pointer;
                 margin: 5px;
             }
-
             button:hover {
                 background-color: #1f5346;
             }
-
-            /* ---- the expense list ---- */
             #response {
                 width: 414px;
                 margin-top: 20px;
             }
-
-            /* every expense row your JavaScript adds */
             #response div {
                 background-color: #ffffff;
                 border: 1px solid #d9d3bd;
@@ -66,8 +50,6 @@
                 padding: 10px;
                 margin-bottom: 10px;
             }
-
-            /* ---- the total ---- */
             #total {
                 font-size: 20px;
                 font-weight: bold;
@@ -77,56 +59,37 @@
         </style>
     </head>
     <body>
-        <input style = "width:400px; padding:6px; margin:10px; border-radius: 6px; border: 1px solid #e5e5e5; " id ="first" style = "width:100px " type= "text" placeholder = "items">
-        <input style = "width:400px; padding:6px; margin:10px; border-radius: 6px; border: 1px solid #e5e5e5;" id = "second"  type= "text" placeholder = "amount"\>
-    
+        <input style = "width:400px; padding:6px; margin:10px; border-radius: 6px; border: 1px solid #e5e5e5; " id ="first" type= "text" placeholder = "items">
+        <input style = "width:400px; padding:6px; margin:10px; border-radius: 6px; border: 1px solid #e5e5e5;" id = "second" type= "text" placeholder = "amount">
+
         <div>
-      
-        <button onclick = "expense()">Sumbit</button>
+        <button onclick = "expense()">Submit</button>
         <button onclick = "total()">total amount</button>
+        </div>
 
-    </div>
+        <div id = "response"></div>
+        <div id = "total"></div>
 
-
-    <div id = "response">
-        
-              
-    </div>
- 
-    <div id = "total"></div>
    <script>
 
    async function expense(){
-   
-    const  items = document.getElementById("first").value 
-    const amount = document.getElementById("second").value 
+    const items = document.getElementById("first").value
+    const amount = document.getElementById("second").value
 
-    const newDiv = document.createElement("div")
-    newDiv.innerHTML = items + ": "+  amount  
+    const responses = await axios.post("/expense",
+        {
+            items : items,
+            amount : amount
+        },
+        { headers: { token: localStorage.getItem("token") } }
+    )
 
-
-    const final = document.getElementById("response")
-    final.appendChild(newDiv)
-
-    
-   const responses= await axios.post("http://localhost:3001/expense" ,
-    
-    {
-     items : items ,
-     amount :amount  // or you can write items , amount 
-
-   } ,  { headers: { token: localStorage.getItem("token") } } 
-
-)
-
-
-
+    total()
    }
 
 
    async function total(){
-
-    const response = await axios.get("http://localhost:3001/expense" , {
+    const response = await axios.get("/expense", {
         headers : {
             token : localStorage.getItem("token")
         }
@@ -135,10 +98,6 @@
     document.getElementById("total").innerHTML = "Total:" + response.data.total;
    }
 
-
    </script>
-
-
-
     </body>
 </html>
