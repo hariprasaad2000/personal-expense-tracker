@@ -1,85 +1,57 @@
 <html>
-    <header>
+    <head>
         <script src = "https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <style>
-            /* ---- the whole page ---- */
             body {
                 background-color: #f4f1e6;
                 color: #223328;
                 font-family: Arial, sans-serif;
                 margin: 0;
                 min-height: 100vh;
-
-                /* flexbox: centers everything left-right AND up-down */
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
             }
-
-            /* adds the page title using only CSS */
             body::before {
                 content: "Create your account";
                 font-size: 28px;
                 font-weight: bold;
                 margin-bottom: 10px;
             }
-
-            /* ---- the two text boxes ---- */
             input {
                 background-color: #ffffff;
                 color: #223328;
                 font-size: 15px;
             }
-
-            /* green ring when you click into a box */
             input:focus {
                 outline: 2px solid #2f6f5e;
             }
-
-            /* ---- the button ---- */
             button:hover {
                 opacity: 0.9;
             }
         </style>
-    </header>
-
+    </head>
 
     <body>
-     
-
         <input style = "width:400px; padding:6px; margin:10px; border-radius: 6px; border: 1px solid #e5e5e5;" id ="username" type = "text" placeholder = "Username">
-        <input  style = "width:400px; padding:6px; margin:10px; border-radius: 6px; border: 1px solid #e5e5e5;" id = "password" type = "text" placeholder = "Password">
+        <input style = "width:400px; padding:6px; margin:10px; border-radius: 6px; border: 1px solid #e5e5e5;" id = "password" type = "text" placeholder = "Password">
 
-
-        <div> 
-         <button onclick = "signup()" style="background-color: #4285F4; color: white; border: none; border-radius: 20px; padding: 12px 30px; cursor: pointer; font-size: 16px;">Sumbit</button>
+        <div>
+         <button onclick = "signup()" style="background-color: #4285F4; color: white; border: none; border-radius: 20px; padding: 12px 30px; cursor: pointer; font-size: 16px;">Submit</button>
         </div>
-
-
-
-
-
     </body>
 
-    <script> 
+    <script>
     async function signup(){
         const username = document.getElementById("username").value
-        const password = document.getElementById("password").value 
+        const password = document.getElementById("password").value
 
-        const response = await axios.post("http://localhost:3001/signup" , {
+        const response = await axios.post("/signup" , {
             username , password
         })
 
         window.location = '/signin'
-
     }
-
-
-
-
-
     </script>
-
-
 </html>
