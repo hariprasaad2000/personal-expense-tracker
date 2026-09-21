@@ -158,6 +158,7 @@ for (let i = 0; i < Usertotal.length; i++) {
     total += Usertotal[i].amount;
 }
 res.json({
+    expenses : Usertotal,
     total: total
 })
 
